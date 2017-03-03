@@ -3,19 +3,62 @@ const Tree = require('./lib/tree');
 
 let root = new Node();
 
-let node1 = new Node('path1');
-node1.addChild(new Node('sub-path', ['get']).addChild(new Node('sub-sub-path')));
-node1.addChild(new Node('sub-path', ['post']));
-
-root.addChild(node1);
-
-let node2 = new Node('path');
-
-node2.addChild(new Node('sub-path', ['get']));
-node2.addChild(new Node('sub-path', ['post']));
-
-root.addChild(node2);
-
 let tree = new Tree(root);
+
+tree.addSpecification('group',
+  {
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Swagger Petstore",
+      "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "name": "Swagger API Team"
+      },
+      "license": {
+        "name": "MIT"
+      }
+    },
+    "host": "petstore.swagger.io",
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/pets/store": {},
+      "/pets/store/for": {},
+      "/pets/palace": {},
+      "/pets/store/for/the": {},
+      "/pets/store/for/the/win": {},
+    },
+    "definitions": {
+      "Pet": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  });
 
 console.log(JSON.stringify(tree.lookup('/path1/sub-path/sub-sub-path', 'get')));
